@@ -5,48 +5,17 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from datetime import datetime, date
 from pol_violence.plots import plot_fatalities_per_region, plot_region_event_ondemand, plot_all_region_event_highlight,plot_stacked_bar
+from pol_violence.data_loaded import load_dataframe
 
 st.title('Political Violence across the world Data Explorer')
 st.text('This is a web app to explore political violence data')
 
+# dataframe is loaded
+df_gpv = load_dataframe()
 
-df_gpv = pd.read_csv("gender_Sep27-1.csv")
-df_gpv.drop([
-    'event_id_cnty',
-    #'event_date', 
-    'year', 
-    'time_precision',
-    'disorder_type', 
-    #'event_type', 
-    #'sub_event_type', 
-    'actor1',
-    'assoc_actor_1', 
-    #'inter1', 
-    'actor2', 
-    'assoc_actor_2', 
-    'inter2',
-    #'interaction', 
-    'civilian_targeting', 
-    #'iso',
-    #'region', 
-    #'country',
-    'admin1', 
-    'admin2', 
-    'admin3', 
-    #'location', 
-    #'latitude', 
-    #'longitude',
-    'geo_precision', 
-    'source', 
-    'source_scale', 
-    #'notes', 
-    #'fatalities',
-    'tags',
-    'timestamp'                           
-], axis=1, inplace=True)
+st.dataframe(df_gpv)
 
 
-df_gpv["date"] = df_gpv["event_date"].apply(date.fromisoformat)
 
 
 # A dictionary is created
