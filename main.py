@@ -16,6 +16,21 @@ df_gpv = load_dataframe()
 st.dataframe(df_gpv)
 
 
+option_region = st.selectbox(
+    "Select region",
+    (df_gpv['region'].unique()),
+)
+
+st.write("You selected:", option_region)
+
+option_event = st.selectbox(
+        "Select event",
+        (df_gpv['event'].unique()),
+
+)
+
+
+
 
 
 # A dictionary is created
