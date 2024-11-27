@@ -25,10 +25,37 @@ st.write("You selected:", option_region)
 
 option_event = st.selectbox(
         "Select event",
-        (df_gpv['event'].unique()),
+        (df_gpv['sub_event_type'].unique()),
 
 )
 
+st.write("You selected:", option_event)
+
+
+#both last scope must be related with a botton 
+
+
+with st.form("my_form"):
+    st.write("Inside the form")
+    option_region = st.selectbox(
+    "Select region",
+    (df_gpv['region'].unique()),
+)
+
+st.write("You selected:", option_region)
+
+option_event = st.selectbox(
+        "Select event",
+        (df_gpv['sub_event_type'].unique()),
+
+)
+
+st.write("You selected:", option_event)
+
+    # Every form must have a submit button.
+submitted = st.form_submit_button("Click here and see the plot")
+if submitted:
+        st.write(option_region, option_event)
 
 
 
