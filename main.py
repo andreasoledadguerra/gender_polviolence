@@ -17,38 +17,33 @@ df_gpv = load_dataframe()
 st.dataframe(df_gpv)
 
 # Create two selectboxes
-col1, col2 = st.columns(2)
+col1,col2 = st.columns(2)
 
 
 with col1:
-    # First selectbox for choosing the first variable
+    # Selectbox for choosing the variable 'region'
     option_region = st.selectbox(
-    "Select region",
+    "Select region for explore fatalities",
     (df_gpv['region'].unique()),
 )
 
 st.write("You selected:", option_region)
 
-with col2:
-    #Second selectbox for choosing the first variable
-    option_event = st.selectbox(
-        "Select event",
-        (df_gpv['sub_event_type'].unique()),
-)
-
-st.write("You selected:", option_event)
-
 ## A button to perform analysis is created
-if st.button('Get your plot'):
-            if option_region in [df_gpv['region'].unique()] and option_event in [df_gpv['sub_event_type'].unique()]:
-            # Group by categorical variable
-                grouped_result = df_gpv.groupby(option_event)[option_region]
-
-                st.dataframe(grouped_result)
-
-                st.bar_chart(grouped_result)
-
+if st.button('Get your data'):
+            if option_region in list(df_gpv['region'].unique()):
                 
+            # Group by categorical variable
+                #grouped_result = df_gpv.groupby(option_fatalities)[option_region]
+                group_region_fatalities = df_gpv.groupby('region')['fatalities'].sum()
+
+                fatalities_per_region = group_region_fatalities.to_dict()
+
+                row_fatality = plot_fatalities_per_region(fatalities_per_region)
+                
+                st.dataframe(row_fatality)
+
+
 #with st.form("my_form"):
     #st.write("Inside the form")
     #option_region = st.selectbox(
