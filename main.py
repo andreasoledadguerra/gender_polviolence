@@ -13,30 +13,15 @@ st.text('This is a web app to explore political violence data')
 # dataframe is loaded
 df_gpv = load_dataframe()
 
+
 st.dataframe(df_gpv)
 
-
-option_region = st.selectbox(
-    "Select region",
-    (df_gpv['region'].unique()),
-)
-
-st.write("You selected:", option_region)
-
-option_event = st.selectbox(
-        "Select event",
-        (df_gpv['sub_event_type'].unique()),
-
-)
-
-st.write("You selected:", option_event)
+# Create two selectboxes
+col1, col2 = st.columns(2)
 
 
-#both last scope must be related with a botton 
-
-
-with st.form("my_form"):
-    st.write("Inside the form")
+with col1:
+    # First selectbox for choosing the first variable
     option_region = st.selectbox(
     "Select region",
     (df_gpv['region'].unique()),
@@ -44,18 +29,46 @@ with st.form("my_form"):
 
 st.write("You selected:", option_region)
 
-option_event = st.selectbox(
+with col2:
+    #Second selectbox for choosing the first variable
+    option_event = st.selectbox(
         "Select event",
         (df_gpv['sub_event_type'].unique()),
-
 )
 
 st.write("You selected:", option_event)
 
+## A button to perform analysis is created
+if st.button('Get your plot'):
+            if option_region in [df_gpv['region'].unique()] and option_event in [df_gpv['sub_event_type'].unique()]:
+            # Group by categorical variable
+                grouped_result = df_gpv.groupby(option_event)[option_region]
+
+                st.dataframe(grouped_result)
+
+                st.bar_chart(grouped_result)
+
+                
+#with st.form("my_form"):
+    #st.write("Inside the form")
+    #option_region = st.selectbox(
+    #"Select region",
+    #(df_gpv['region'].unique()),
+#)
+
+#st.write("You selected:", option_region)
+
+#option_event = st.selectbox(
+        #"Select event",
+        #(df_gpv['sub_event_type'].unique()),
+#)
+
+#st.write("You selected:", option_event)
+
     # Every form must have a submit button.
-submitted = st.form_submit_button("Click here and see the plot")
-if submitted:
-        st.write(option_region, option_event)
+#submitted = st.form_submit_button("Click here and see the plot")
+#if submitted:
+        #st.write(option_region, option_event)
 
 
 
