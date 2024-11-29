@@ -16,59 +16,8 @@ df_gpv = load_dataframe()
 
 st.dataframe(df_gpv)
 
-# Create two selectboxes
-col1,col2 = st.columns(2)
 
-
-with col1:
-    # Selectbox for choosing the variable 'region'
-    option_region = st.selectbox(
-    "Select region for explore fatalities",
-    (df_gpv['region'].unique()),
-)
-
-st.write("You selected:", option_region)
-
-## A button to perform analysis is created
-if st.button('Get your data'):
-            if option_region in list(df_gpv['region'].unique()):
-                
-            # Group by categorical variable
-                #grouped_result = df_gpv.groupby(option_fatalities)[option_region]
-                group_region_fatalities = df_gpv.groupby('region')['fatalities'].sum()
-
-                fatalities_per_region = group_region_fatalities.to_dict()
-
-                row_fatality = plot_fatalities_per_region(fatalities_per_region)
-                
-                st.dataframe(row_fatality)
-
-
-#with st.form("my_form"):
-    #st.write("Inside the form")
-    #option_region = st.selectbox(
-    #"Select region",
-    #(df_gpv['region'].unique()),
-#)
-
-#st.write("You selected:", option_region)
-
-#option_event = st.selectbox(
-        #"Select event",
-        #(df_gpv['sub_event_type'].unique()),
-#)
-
-#st.write("You selected:", option_event)
-
-    # Every form must have a submit button.
-#submitted = st.form_submit_button("Click here and see the plot")
-#if submitted:
-        #st.write(option_region, option_event)
-
-
-
-
-# A dictionary is created
+# A dictionary is created 
 region_map = {
     'africa': ['Southern Africa', 'Northern Africa', 'Middle Africa', 'Western Africa', 'Eastern Africa'],
     'middle east': ['Middle East'],
@@ -92,9 +41,11 @@ df_gpv['region'] = df_gpv['region'].map(flattened_map)
 
 #'region' and 'fatalities' are related 
 group_region_fatalities = df_gpv.groupby('region')['fatalities'].sum()
-
 # We convert that columns in a dictionary for plotting manipulation
+
 fatalities_per_region = group_region_fatalities.to_dict()
+st.write(f'{fatalities_per_region}')
+
 
 # 'region' and 'sub_event_type' are related
 grouped_counts = df_gpv.groupby('region')['sub_event_type'].value_counts()
@@ -109,9 +60,35 @@ event = df_gpv['sub_event_type'].any()
 def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int:
     for (region,event), counts in counts_dict.items():
         return f"The number of {event} in {region} is {counts_dict[(region, event)]}"
-    
+
+
+
+# Create two selectboxes
+col1,_ = st.columns(2)
+
+
+with col1:
+    # Selectbox for choosing the variable 'region'
+    option_region = st.selectbox(
+    "Select region for explore fatalities",
+    (df_gpv['region'].unique())
+)
+
+st.write("You selected:", option_region)
+
+get_your_data = []
+## A button to perform analysis is created
+if st.button('Get your data'):     
+    #st.write(f'{type(option_region)}')    
+    st.write(f'The numbers of fatalities of {option_region} is {fatalities_per_region[option_region]}')
+    #if option_region == df_gpv['region'].any():  
+        #get_your_data.append()
+
+
+
+
 # A variable for exploring 'notes' is created
-explore_notes = df_gpv[df_gpv['fatalities']== 750].iloc[0]['notes']
+#explore_notes = df_gpv[df_gpv['fatalities']== 750].iloc[0]['notes']
 
 
 #fig, ax = plt.subplots(1,1)
