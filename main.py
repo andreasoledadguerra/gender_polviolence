@@ -81,16 +81,29 @@ get_your_data = []
 if st.button('Get your data'):     
     #st.write(f'{type(option_region)}')    
     st.write(f'The numbers of fatalities of {option_region} is {fatalities_per_region[option_region]}')
-    #if option_region == df_gpv['region'].any():  
-        #get_your_data.append()
+
+
+fig, ax = plt.subplots()
+ax.bar(fatalities_per_region.keys(), fatalities_per_region.values())
+ax.set_xlabel('Region')
+ax.set_ylabel('Fatalities')
+ax.set_title('Region vs Fatalities')
+plt.xticks(rotation=45)
+
+if st.button('Get your plot'):
+    st.write('This is a plot visualization of Region vs Fatalities')
+    st.pyplot(fig) 
+
+
+
+
 
 
 
 
 # A variable for exploring 'notes' is created
-#explore_notes = df_gpv[df_gpv['fatalities']== 750].iloc[0]['notes']
-
-
+    #st.write({df_gpv[df_gpv['fatalities']== option_region].iloc[0]['notes']})
+    #st.write({df_gpv[df_gpv['region']== option_region].iloc[0]['notes']})
 #fig, ax = plt.subplots(1,1)
 #ax.plot([0,1.1,2,0.7])
 #st.pyplot(fig)
