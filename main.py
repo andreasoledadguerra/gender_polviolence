@@ -66,7 +66,6 @@ def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int
 # Create two selectboxes to perform fatalities per region
 col1,_ = st.columns(2)
 
-
 with col1:
     # Selectbox for choosing the variable 'region'
     option_region = st.selectbox(
@@ -83,6 +82,7 @@ if st.button('Get your data'):
     st.write(f'The numbers of fatalities of {option_region} is {fatalities_per_region[option_region]}')
 
 
+#Plot fatalities
 fig, ax = plt.subplots()
 ax.bar(fatalities_per_region.keys(), fatalities_per_region.values())
 ax.set_xlabel('Region')
@@ -96,7 +96,7 @@ if st.button('Get your plot'):
 
 
 
-
+# A variable for exploring 'notes' is created
 col1,col2 = st.columns(2)
 
 with col1:
@@ -113,17 +113,21 @@ with col2:
         (df_gpv['sub_event_type'].unique())
 )
 
-#for call this function we need 'counts_dict', and user put 'region' and 'event' 
-get_count_by_region_event()
+## A button to perform analysis is created
+if st.button('Get your number of event per region'):    
+    st.button(get_count_by_region_event(counts_dict, option_region, option_event))     
+    #st.write(f'The numbers of fatalities of {option_region} is {fatalities_per_region[option_region]}')
+
+
+
+
+#for call function we need 'counts_dict', and user put 'region' and 'event' and it must to be related with the notes
+#get_count_by_region_event()
 
 
 
 
 
 
-# A variable for exploring 'notes' is created
-    #st.write({df_gpv[df_gpv['fatalities']== option_region].iloc[0]['notes']})
+
     #st.write({df_gpv[df_gpv['region']== option_region].iloc[0]['notes']})
-#fig, ax = plt.subplots(1,1)
-#ax.plot([0,1.1,2,0.7])
-#st.pyplot(fig)
