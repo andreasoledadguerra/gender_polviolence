@@ -63,7 +63,7 @@ def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int
 
 
 
-# Create two selectboxes
+# Create two selectboxes to perform fatalities per region
 col1,_ = st.columns(2)
 
 
@@ -95,6 +95,26 @@ if st.button('Get your plot'):
     st.pyplot(fig) 
 
 
+
+
+col1,col2 = st.columns(2)
+
+with col1:
+    # Selectbox for choosing the variable 'region'
+    option_region = st.selectbox(
+    "Select region",
+    (df_gpv['region'].unique())
+)
+    
+with col2:
+    #Selectbox for choosing the variable 'event'
+    option_event = st. selectbox(
+        "Select event",
+        (df_gpv['sub_event_type'].unique())
+)
+
+#for call this function we need 'counts_dict', and user put 'region' and 'event' 
+get_count_by_region_event()
 
 
 
