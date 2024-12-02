@@ -97,32 +97,30 @@ if st.button('Get your plot'):
 
 
 # A variable for exploring 'notes' is created
-col1,col2 = st.columns(2)
+col3,col4 = st.columns(2)
 
-with col1:
+with col3:
     # Selectbox for choosing the variable 'region'
-    option_region = st.selectbox(
+    region = st.selectbox(
     "Select region",
     (df_gpv['region'].unique())
 )
     
-with col2:
+with col4:
     #Selectbox for choosing the variable 'event'
-    option_event = st. selectbox(
+    event = st. selectbox(
         "Select event",
         (df_gpv['sub_event_type'].unique())
 )
 
 ## A button to perform analysis is created
 if st.button('Get your number of event per region'):    
-    st.button(get_count_by_region_event(counts_dict, option_region, option_event))     
+    st.write(get_count_by_region_event(counts_dict, region, event))     
     #st.write(f'The numbers of fatalities of {option_region} is {fatalities_per_region[option_region]}')
 
+#The output is ALWAYS "The number of Attack in africa is 3036"
+#for call function we need 'counts_dict', and user put 'region' and 'event' and it must to be related with the counts of event
 
-
-
-#for call function we need 'counts_dict', and user put 'region' and 'event' and it must to be related with the notes
-#get_count_by_region_event()
 
 
 
