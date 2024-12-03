@@ -158,7 +158,9 @@ if st.button('Get your stacked plot'):
     st.pyplot(plot_stacked_bar(grouped_counts))
 
 
+
 #Plot Region-Event on Demand
+
 def plot_region_event_ondemand(counts_dict: dict, region: str, event: str) -> object:
     
     filtered_data = {(region, event): counts_dict.get((region, event), 0)}# Returns the value if found, and 0 if not found (default value)
@@ -197,12 +199,84 @@ with col_2:
 
 st.write("You selected:", region_1, event_1)
 
-## A button to perform analysis is created
+#A button to perform analysis is created
 if st.button('Get your plot region/event colored on demand'):     
     
     st.write(f'This is a plot of {event_1} in {region_1}')
     st.pyplot(plot_region_event_ondemand(counts_dict, region_1,event_1))
 
+
+
+#The higlighted one button
+def plot_all_region_event_highlight(counts_dict: dict, region: str, event: str) -> object:
+
+    colors = []
+    x_etiquette = []
+    values = []
+
+    for (key, value) in counts_dict.items():
+        x_etiquette.append(f"{key[0]} - {key[1]}")
+        values.append(value)
+        
+        # Highlight selected region-event
+        if key == (region, event):
+            colors.append('c')
+        else:
+            colors.append('darkslategray')
+    
+    # Create figure and axes
+    fig, ax = plt.subplots(figsize=(12, 6))
+    
+    # Create bars
+    bars = ax.bar(x_etiquette, values, color=colors)
+    
+    # Add value labels on top of bar
+    for bar in bars:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2., height,
+                f'{height:,}',
+                ha='center', va='bottom')
+    
+    ax.set_xlabel('Events per Region', fontsize=12)
+    ax.set_ylabel('Count', fontsize=12)
+    ax.set_title(f'Event Counts by Region (Highlighting {region} - {event})', 
+                 fontsize=14)
+    
+    # Rotate x-axis labels for better readability
+    plt.xticks(rotation=90, ha='right')
+    
+    # Add grid
+    ax.grid(True, linestyle='--', alpha=0.7, axis='y')
+    
+    # Adjust layout
+    plt.tight_layout()
+    plt.close()
+    return fig
+
+col1_,col2_, = st.columns(2)
+
+with col1_:
+    #Selectbox for choosing the variable 'region'
+    the_region = st. selectbox(
+        "Select the region",
+        (df_gpv['region'].unique())
+)
+    
+with col2_:
+    # Selectbox for choosing the variable 'event'
+    the_event = st.selectbox(
+    "Select the event",
+    (df_gpv['sub_event_type'].unique())
+)    
+
+st.write("You selected:", the_region, the_event)
+
+
+#A button to perform analysis is created
+if st.button('Get your plot region/event highlighted'):     
+    
+    st.write(f'This is a plot of {the_event} in {the_region} highlighted')
+    st.pyplot(plot_all_region_event_highlight(counts_dict, the_region,the_event))
 
 
 
