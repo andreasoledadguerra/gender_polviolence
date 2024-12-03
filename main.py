@@ -1,3 +1,8 @@
+"""TODO Challenge: armar un main.py nuevo llamado 'main2.py' , que debe ser muy simple. COndicion 1: 
+1.Crear dos páginas (la ilusión de que son dos páginas). Debe contener: pag 1 y pag 2 debe tener un st.write diferente 
+(estoy en la página 1/estoy en la página 2)
+2. Debe haber una lista desplegable que me permita cambiar de página."""
+
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -6,6 +11,10 @@ import matplotlib.pyplot as plt
 from datetime import datetime, date
 from pol_violence.plots import plot_fatalities_per_region, plot_region_event_ondemand, plot_all_region_event_highlight,plot_stacked_bar
 from pol_violence.data_loaded import load_dataframe
+
+def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int:
+    return f"The number of {event} in {region} is {counts_dict[(region, event)]}"
+
 
 st.title('Political Violence across the world Data Explorer')
 st.text('This is a web app to explore political violence data')
@@ -53,14 +62,7 @@ grouped_counts = df_gpv.groupby('region')['sub_event_type'].value_counts()
 # We grouped region and events to see counts
 counts_dict = grouped_counts.to_dict()
 
-# A function that gives the number of event per region is created
-region = df_gpv['region'].any()
-event = df_gpv['sub_event_type'].any()
-
-def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int:
-    for (region,event), counts in counts_dict.items():
-        return f"The number of {event} in {region} is {counts_dict[(region, event)]}"
-
+        
 
 
 # Create two selectboxes to perform fatalities per region
@@ -88,6 +90,7 @@ ax.bar(fatalities_per_region.keys(), fatalities_per_region.values())
 ax.set_xlabel('Region')
 ax.set_ylabel('Fatalities')
 ax.set_title('Region vs Fatalities')
+
 plt.xticks(rotation=45)
 
 if st.button('Get your plot'):
