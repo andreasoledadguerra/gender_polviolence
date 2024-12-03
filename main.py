@@ -15,6 +15,20 @@ from pol_violence.data_loaded import load_dataframe
 def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int:
     return f"The number of {event} in {region} is {counts_dict[(region, event)]}"
 
+def plot_stacked_bar(grouped_counts: pd.DataFrame) -> object:
+    stacked_df = grouped_counts.unstack(fill_value=0)  
+
+    plt.figure(figsize=(12, 6))
+    fig_1 = stacked_df.plot(kind='bar', stacked=True, colormap='viridis', figsize=(12, 6))
+
+    plt.title('Stacked Bar Chart of Sub-event Counts by Region')
+    plt.xlabel('Region')
+    plt.ylabel('Count')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+
+    return fig_1
 
 st.title('Political Violence across the world Data Explorer')
 st.text('This is a web app to explore political violence data')
@@ -98,7 +112,6 @@ if st.button('Get your plot'):
     st.pyplot(fig) 
 
 
-
 # A variable for exploring 'notes' is created
 col3,col4 = st.columns(2)
 
@@ -123,6 +136,26 @@ if st.button('Get your number of event per region'):
 
 #The output is ALWAYS "The number of Attack in africa is 3036"
 #for call function we need 'counts_dict', and user put 'region' and 'event' and it must to be related with the counts of event
+#st.write({df_gpv[df_gpv['region']== option_region].iloc[0]['notes']})
+
+
+
+#Stacked Bar Chart of Sub-event Counts by Region
+
+def plot_stacked_bar(grouped_counts: pd.DataFrame) -> plt.Figure:
+    stacked_df = grouped_counts.unstack(fill_value=0)
+    plt.figure(figsize=(12, 6))
+    stacked_df.plot(kind='bar', stacked=True, colormap='viridis', figsize=(12, 6))
+    plt.title('Stacked Bar Chart of Sub-event Counts by Region')
+    plt.xlabel('Region')
+    plt.ylabel('Count')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    return plt.gcf()  # Return the current figure
+
+if st.button('Get your stacked plot'):
+    st.write('This is a plot visualization of events counts by region')
+    st.pyplot(plot_stacked_bar(grouped_counts))
 
 
 
@@ -130,5 +163,3 @@ if st.button('Get your number of event per region'):
 
 
 
-
-    #st.write({df_gpv[df_gpv['region']== option_region].iloc[0]['notes']})
