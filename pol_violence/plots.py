@@ -13,31 +13,19 @@ def plot_fatalities_per_region(fatalities_per_region: dict)-> object:
 
     return fig
 
-
-def plot_stacked_bar(grouped_counts: pd.DataFrame) -> object:
-    stacked_df = grouped_counts.unstack(fill_value=0)  
-
-    plt.figure(figsize=(12, 6))
-    fig = stacked_df.plot(kind='bar', stacked=True, colormap='viridis', figsize=(12, 6))
-
-    plt.title('Stacked Bar Chart of Sub-event Counts by Region')
-    plt.xlabel('Region')
-    plt.ylabel('Count')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-
-    return fig
-
 def plot_stacked_bar(grouped_counts: pd.DataFrame) -> plt.Figure:
     stacked_df = grouped_counts.unstack(fill_value=0)
     plt.figure(figsize=(12, 6))
     stacked_df.plot(kind='bar', stacked=True, colormap='viridis', figsize=(12, 6))
+
     plt.title('Stacked Bar Chart of Sub-event Counts by Region')
     plt.xlabel('Region')
     plt.ylabel('Count')
     plt.xticks(rotation=45)
     plt.tight_layout()
     return plt.gcf()  # Return the current figure
+
+
 
 def plot_region_event_ondemand(counts_dict: dict, region: str, event: str) -> object:
     
