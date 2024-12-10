@@ -23,7 +23,8 @@ def plot_stacked_bar(grouped_counts: pd.DataFrame) -> plt.Figure:
     plt.ylabel('Count')
     plt.xticks(rotation=45)
     plt.tight_layout()
-    return plt.gcf()  # Return the current figure
+    fig = plt.gcf()  # Return the current figure
+    return fig
 
 
 
