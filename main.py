@@ -11,13 +11,13 @@ from pol_violence.data_loaded import load_dataframe
 def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int:
     return f"The number of {event} in {region} is {counts_dict[(region, event)]}"
 
-def plot_counts_events_per_region(df_input_region: dict, EVENT: str) -> object :
+def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
     # Create a color list based on the event type
-    colors = ['r' if event == EVENT else 'darkslategray' for event in df_input_region['Event type']]
+    colors = ['r' if event == EVENT else 'darkslategray' for event in df_same_region['Event type']]
     
     # Plot the bar chart
     fig = plt.figure(figsize=(10, 6))
-    plt.bar(df_input_region['Event type'], df_input_region['Count'], color=colors)
+    plt.bar(df_same_region['Event type'], df_same_region['Count'], color=colors)
     plt.xlabel('Event type')
     plt.ylabel('Values')
     plt.title("Events type vs Values") 
@@ -89,17 +89,15 @@ df.index = pd.MultiIndex.from_tuples(df.index, names=['Event type', 'Region'])
 df = df.reset_index()
 
 #We define the main variables 'REGION' and 'EVENT'
-#REGION = 'europe'
-REGION = df['Region'].any()
 
-#EVENT = 'Mob violence'
-EVENT = df['Event type'].any()
-
+#crear un input del usuario para el uso de estas dos variables
+EVENT = 'zarasa'
+REGION = ''
 df_same_event = df[df['Event type'] == EVENT] 
-df_input_region = df[df['Region'] == REGION] 
+df_same_region = df[df['Region'] == REGION] 
 
 #Our function for plot events per region
-plot_counts_events_per_region(df_input_region, EVENT)
+fig = plot_counts_events_per_region(df_same_region, EVENT)
 
 #Our function for plot 
 
@@ -220,4 +218,4 @@ st.write("You select:", REGION, EVENT)
 if st.button('Get your plot of event in a region highlighted'):
 
     st.write(f'This is a plot of {EVENT} in {REGION} highlighted')
-    st.pyplot(plot_counts_events_per_region(df_input_region, EVENT))
+    st.pyplot(plot_counts_events_per_region(df_same_region, EVENT))
