@@ -154,5 +154,24 @@ if st.button('Get your plot region/event highlighted'):
     st.pyplot(plot_all_region_event_highlight(counts_dict, the_region,the_event))
 
 
+col_1_,col_2_, = st.columns(2)
+
+with col_1_:
+    REGION =st.selectbox(
+        "Select the region",
+        (df_gpv['Region'].unique())
+)
 
 
+with col_2_:
+    EVENT =st.selectbox(
+        "Select the event",
+        (df_gpv['Event type'].unique())
+)
+
+st.write("You select:", REGION, EVENT)
+
+if st.button('Get your plot of event in a region highlighted'):
+
+    st.write(f'This is a plot of {EVENT} in {REGION} highlighted')
+    st.pyplot(plot_counts_events_per_region(df_input_region, EVENT))
