@@ -93,18 +93,4 @@ def plot_all_region_event_highlight(counts_dict: dict, region: str, event: str) 
     plt.close()
     return fig
 
-def plot_counts_events_per_region(df_input_region: dict, EVENT: str) -> object:
-    # Create a color list based on the event type
-    colors = ['r' if event == EVENT else 'darkslategray' for event in df_input_region['Event type']]
-    
-    # Plot the bar chart
-    plt.figure(figsize=(10, 6))
-    plt.bar(df_input_region['Event type'], df_input_region['Count'], color=colors)
-    plt.xlabel('Event type')
-    plt.ylabel('Values')
-    plt.title("Events type vs Values")
-    plt.xticks(rotation=90)
-    
-    # Adjust layout and show the plot
-    plt.tight_layout()
-    plt.show()
+
