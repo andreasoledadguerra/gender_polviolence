@@ -11,6 +11,19 @@ from pol_violence.data_loaded import load_dataframe
 def get_count_by_region_event(counts_dict: dict, region: str, event: str) -> int:
     return f"The number of {event} in {region} is {counts_dict[(region, event)]}"
 
+def plot_counts_events_per_region(df_input_region: dict, EVENT: str) -> object :
+    # Create a color list based on the event type
+    colors = ['r' if event == EVENT else 'darkslategray' for event in df_input_region['Event type']]
+    
+    # Plot the bar chart
+    fig = plt.figure(figsize=(10, 6))
+    plt.bar(df_input_region['Event type'], df_input_region['Count'], color=colors)
+    plt.xlabel('Event type')
+    plt.ylabel('Values')
+    plt.title("Events type vs Values") 
+    plt.xticks(rotation=90)
+    plt.tight_layout()
+    return fig
 
 st.title('Political Violence across the world Data Explorer')
 st.text('This is a web app to explore political violence data')
@@ -59,6 +72,39 @@ grouped_counts = df_gpv.groupby('region')['sub_event_type'].value_counts()
 counts_dict = grouped_counts.to_dict()
 
         
+
+#events per region are grouped
+event_per_region = df_gpv.groupby('sub_event_type')['region'].value_counts()
+
+#we convert counts_event_per_region in a  dictionary
+counts_event_per_region = event_per_region.to_dict()
+
+# we convert our dictionary 'counts_event_per_region' into a Pandas DataFrame
+df = pd.DataFrame.from_dict(counts_event_per_region, orient='index', columns=['Count'])
+
+#we transform the tuple-based index into a MultiIndex
+df.index = pd.MultiIndex.from_tuples(df.index, names=['Event type', 'Region'])
+
+# index is reseted
+df = df.reset_index()
+
+#We define the main variables 'REGION' and 'EVENT'
+#REGION = 'europe'
+REGION = df['Region'].any()
+
+#EVENT = 'Mob violence'
+EVENT = df['Event type'].any()
+
+df_same_event = df[df['Event type'] == EVENT] 
+df_input_region = df[df['Region'] == REGION] 
+
+#Our function for plot events per region
+plot_counts_events_per_region(df_input_region, EVENT)
+
+#Our function for plot 
+
+
+
 
 
 # Create two selectboxes to perform fatalities per region
