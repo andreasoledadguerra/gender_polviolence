@@ -93,14 +93,23 @@ def plot_all_region_event_highlight(counts_dict: dict, region: str, event: str) 
     plt.close()
     return fig
 
+def same_event(df_same_event: pd.DataFrame, EVENT: str, REGION: str) -> object:
 
-def plot_counts_events_per_region(df_input_region: dict, EVENT: str) -> object :
+    colors = ['red' if region == REGION else 'darkslategray' for region in df_same_event['Region']]
+    fig, ax = plt.subplots(figsize=(8,6))
+    plt.bar(df_same_event['Region'], df_same_event['Count'], color=colors)
+    ax.set_title(f"{EVENT} count in all regions", fontsize=16)
+    ax.set_xlabel(EVENT,fontsize=12)
+    ax.set_ylabel("Count", fontsize=12)
+    return fig
+
+def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
     # Create a color list based on the event type
-    colors = ['r' if event == EVENT else 'darkslategray' for event in df_input_region['Event type']]
+    colors = ['r' if event == EVENT else 'darkslategray' for event in df_same_region['Event type']]
     
     # Plot the bar chart
     fig = plt.figure(figsize=(10, 6))
-    plt.bar(df_input_region['Event type'], df_input_region['Count'], color=colors)
+    plt.bar(df_same_region['Event type'], df_same_region['Count'], color=colors)
     plt.xlabel('Event type')
     plt.ylabel('Values')
     plt.title("Events type vs Values") 
