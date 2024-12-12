@@ -99,9 +99,8 @@ df_same_region = df[df['Region'] == REGION]
 #Our function for plot events per region
 fig = plot_counts_events_per_region(df_same_region, EVENT)
 
-#Our function for plot 
-
-
+#Our function for plot same 
+fig = same_event(df_same_event, EVENT, REGION)
 
 
 
