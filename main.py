@@ -106,6 +106,33 @@ fig = same_event(df_same_event, EVENT, REGION)
 bifunction_event_region(user_choice)
 
 
+#Creating selectboxes for choose 'plot_counts_events_per_region' or 'same_event' using 'bifunction_event_region'
+colA, ColB, ColQ = st.columns(3)
+
+with colA:
+    #Selectbox for choosing the variable A ()
+    option_A =st.selectbox(
+        "Select A for plot events per region",
+        ()
+
+)   
+
+with ColB:
+    #Selectbox for choosing the variable A ()
+    option_B =st.selectbox(
+        "Select A for plot same events of every region",
+        ()
+
+)
+
+with ColQ:
+    #Selectbox for choosing the variable A ()
+    option_Q =st.selectbox(
+        "Select A for quit",
+        ()
+
+)
+     
 
 # Create two selectboxes to perform fatalities per region
 col1,_ = st.columns(2)
