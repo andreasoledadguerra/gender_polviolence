@@ -117,13 +117,14 @@ def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
     plt.tight_layout()
     return fig
 
-def same_event(df_same_event: pd.DataFrame, EVENT: str, REGION: str) -> object:
 
-    colors = ['red' if region == REGION else 'darkslategray' for region in df_same_event['Region']]
-    fig, ax = plt.subplots(figsize=(8,6))
-    plt.bar(df_same_event['Region'], df_same_event['Count'], color=colors)
-    ax.set_title(f"{EVENT} count in all regions", fontsize=16)
-    ax.set_xlabel(EVENT,fontsize=12)
-    ax.set_ylabel("Count", fontsize=12)
 
-    return fig
+
+event_per_region = df_gpv.groupby('sub_event_type')['region'].value_counts()
+counts_event_per_region = event_per_region.to_dict()
+df = pd.DataFrame.from_dict(counts_event_per_region, orient='index', columns=['Count'])
+df.index = pd.MultiIndex.from_tuples(df.index, names=['Event type', 'Region'])
+
+
+df_same_event = df[df['Event type'] == EVENT] 
+df_input_region = df[df['Region'] == REGION] 
