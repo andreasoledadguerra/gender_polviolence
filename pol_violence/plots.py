@@ -116,3 +116,14 @@ def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
     plt.xticks(rotation=90)
     plt.tight_layout()
     return fig
+
+def same_event(df_same_event: pd.DataFrame, EVENT: str, REGION: str) -> object:
+
+    colors = ['red' if region == REGION else 'darkslategray' for region in df_same_event['Region']]
+    fig, ax = plt.subplots(figsize=(8,6))
+    plt.bar(df_same_event['Region'], df_same_event['Count'], color=colors)
+    ax.set_title(f"{EVENT} count in all regions", fontsize=16)
+    ax.set_xlabel(EVENT,fontsize=12)
+    ax.set_ylabel("Count", fontsize=12)
+
+    return fig
