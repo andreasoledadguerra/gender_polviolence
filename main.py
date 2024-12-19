@@ -102,6 +102,9 @@ fig = plot_counts_events_per_region(df_same_region, EVENT)
 #Our function for plot same 
 fig = same_event(df_same_event, EVENT, REGION)
 
+#Our function for choose plot ('plot_counts_events_per_region' or 'same_event')
+bifunction_event_region(user_choice)
+
 
 
 # Create two selectboxes to perform fatalities per region
