@@ -93,9 +93,6 @@ def plot_all_region_event_highlight(counts_dict: dict, region: str, event: str) 
     plt.close()
     return fig
 
-#How Could I handle this data manipulation?
-#event_per_region = df_gpv.groupby('sub_event_type')['region'].value_counts()
-#counts_event_per_region = event_per_region.to_dict()
 
 def same_event(df_same_event: pd.DataFrame, EVENT: str, REGION: str) -> object:
 
