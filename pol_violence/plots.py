@@ -132,15 +132,15 @@ def bifunction_event_region(user_choice):
             #choose event and region
             if user_choice.upper() == 'A':
                 df_same_event
-                print(input(f"Choose {EVENT}"))
-                print(input(f"Choose {REGION}"))
+                input_event = input(f"Choose {EVENT}")
+                input_region = input(f"Choose {REGION}")
                 print(same_event(df_same_event, EVENT, REGION))
                 is_input_ok =True
                 
             #choose event
             elif user_choice.upper() == 'B':
                 df_input_region
-                print(input(f"Choose {EVENT}"))
+                input_event = input(f"Choose {EVENT}")
                 print(plot_counts_events_per_region(df_input_region, EVENT))
                 is_input_ok = True
                 
