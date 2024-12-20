@@ -25,6 +25,20 @@ def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
     plt.tight_layout()
     return fig
 
+def same_event(df_same_event: pd.DataFrame, EVENT: str, REGION: str) -> object:
+
+    colors = ['red' if region == REGION else 'darkslategray' for region in df_same_event['Region']]
+    fig, ax = plt.subplots(figsize=(8,6))
+    plt.bar(df_same_event['Region'], df_same_event['Count'], color=colors)
+    ax.set_title(f"{EVENT} count in all regions", fontsize=16)
+    ax.set_xlabel(EVENT,fontsize=12)
+    ax.set_ylabel("Count", fontsize=12)
+    return fig
+
+def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
+    # Create a color list based on the event type
+    colors = ['r' if event == EVENT else 'darkslategray' for event in df_same_region['Event type']]
+
 st.title('Political Violence across the world Data Explorer')
 st.text('This is a web app to explore political violence data')
 
@@ -96,7 +110,7 @@ counts_event_per_region = event_per_region.to_dict()
 
 #We define the main variables 'REGION' and 'EVENT'
     #crear un input del usuario para el uso de estas dos variables
-    
+
 EVENT = 'zarasa'
 REGION = ''
 df_same_event = df[df['Event type'] == EVENT] 
@@ -105,7 +119,7 @@ df_same_region = df[df['Region'] == REGION]
 #Our function for plot events per region
 fig = plot_counts_events_per_region(df_same_region, EVENT)
 
-#Our function for plot same 
+#Our function for plot same event
 fig = same_event(df_same_event, EVENT, REGION)
 
 #Our function for choose plot ('plot_counts_events_per_region' or 'same_event')
