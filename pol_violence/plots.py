@@ -118,35 +118,42 @@ def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
     plt.tight_layout()
     return fig
 
-def bifunction_event_region(user_choice):
-    valid_choices = ["A","B","Q"]
+def bifunction_event_region():
+    valid_choices = ["A", "B", "Q"]
     is_input_ok = False
-
+    
     while not is_input_ok:
         user_choice = input(" Choose an option:\n"
-        "'A' if you want to see same event across regions,\n"
-        "'B' if you want to see event counts per region,\n"
-        "'Q' if you want to quit\n")
-        
+                          "'A' if you want to see same event across regions,\n"
+                          "'B' if you want to see event counts per region,\n"
+                          "'Q' if you want to quit\n")
+                          
         if user_choice.upper() in valid_choices:
-            #choose event and region
             if user_choice.upper() == 'A':
-                df_same_event
-                input_event = input(f"Choose {EVENT}")
-                input_region = input(f"Choose {REGION}")
-                print(same_event(df_same_event, EVENT, REGION))
-                is_input_ok =True
-                
-            #choose event
-            elif user_choice.upper() == 'B':
-                df_input_region
-                input_event = input(f"Choose {EVENT}")
-                print(plot_counts_events_per_region(df_input_region, EVENT))
+                process_same_event_option()
                 is_input_ok = True
                 
-
+            elif user_choice.upper() == 'B':
+                process_region_count_option()
+                is_input_ok = True
+                
             elif user_choice.upper() == 'Q':
                 print("Outer function has finished executing.")
                 is_input_ok = True
         else:
             print("Invalid choice. Please try again.")
+
+def process_same_event_option():
+    # Only work with df_same_event when option A is chosen
+    event = input(f"Choose {EVENT}: ")
+    region = input(f"Choose {REGION}: ")
+    print(same_event(df_same_event, EVENT, REGION))
+
+def process_region_count_option():
+    # Only work with df_input_region when option B is chosen
+    event = input(f"Choose {EVENT}: ")
+    print(plot_counts_events_per_region(df_input_region, EVENT))
+
+# Usage
+if __name__ == "__main__":
+    bifunction_event_region() 
