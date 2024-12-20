@@ -123,7 +123,10 @@ def bifunction_event_region(user_choice):
     is_input_ok = False
 
     while not is_input_ok:
-        user_choice = input(" Choose an option:\n'A' if you want to see same event across regions,\n 'B' if you want to see event counts per region,\n'Q' if you want to quit\n")
+        user_choice = input(" Choose an option:\n"
+        "'A' if you want to see same event across regions,\n"
+        "'B' if you want to see event counts per region,\n"
+        "'Q' if you want to quit\n")
         
         if user_choice.upper() in valid_choices:
             #choose event and region
