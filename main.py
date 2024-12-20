@@ -106,33 +106,8 @@ fig = same_event(df_same_event, EVENT, REGION)
 bifunction_event_region(user_choice)
 
 
-#Creating selectboxes for choose 'plot_counts_events_per_region' or 'same_event' using 'bifunction_event_region'
-colA, ColB, ColQ = st.columns(3)
+    
 
-with colA:
-    #Selectbox for choosing the variable A ()
-    option_A =st.selectbox(
-        "Select A for plot events per region",
-        ()
-
-)   
-
-with ColB:
-    #Selectbox for choosing the variable A ()
-    option_B =st.selectbox(
-        "Select A for plot same events of every region",
-        ()
-
-)
-
-with ColQ:
-    #Selectbox for choosing the variable A ()
-    option_Q =st.selectbox(
-        "Select A for quit",
-        ()
-
-)
-     
 
 # Create two selectboxes to perform fatalities per region
 col1,_ = st.columns(2)
@@ -248,3 +223,36 @@ if st.button('Get your plot of event in a region highlighted'):
 
     st.write(f'This is a plot of {EVENT} in {REGION} highlighted')
     st.pyplot(plot_counts_events_per_region(df_same_region, EVENT))
+
+
+#Creating selectboxes for choose 'plot_counts_events_per_region' or 'same_event' using 'bifunction_event_region'
+colA, ColB, ColQ = st.columns(3)
+
+with colA:
+    #Selectbox for choosing the variable A ("Plot same event per region")
+    option_A =st.selectbox(
+        "Select A for plot same event per region",
+        (bifunction_event_region("A")) #?
+
+)   
+
+with ColB:
+    #Selectbox for choosing the variable B ("Plot all events per region")
+    option_B =st.selectbox(
+        "Select A for plot all events per region",
+        (bifunction_event_region("B"))#?
+
+)
+
+with ColQ:
+    #Selectbox for choosing the variable Q ("Quit")
+    option_Q =st.selectbox(
+        "Select A for quit",
+        (bifunction_event_region("Q"))#?
+
+)
+    
+#A button to perform analysis is created
+if st.button('Get your plot'):     
+    
+    st.pyplot(bifunction_event_region(user_choice))
