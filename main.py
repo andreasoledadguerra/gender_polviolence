@@ -88,9 +88,15 @@ df.index = pd.MultiIndex.from_tuples(df.index, names=['Event type', 'Region'])
 # index is reseted
 df = df.reset_index()
 
-#We define the main variables 'REGION' and 'EVENT'
+#we grouped 'sub_event_type' and 'region' in a variable
+event_per_region = df_gpv.groupby('sub_event_type')['region'].value_counts()
 
-#crear un input del usuario para el uso de estas dos variables
+#we convert 'event_per_region' in a dictionary
+counts_event_per_region = event_per_region.to_dict()
+
+#We define the main variables 'REGION' and 'EVENT'
+    #crear un input del usuario para el uso de estas dos variables
+    
 EVENT = 'zarasa'
 REGION = ''
 df_same_event = df[df['Event type'] == EVENT] 
