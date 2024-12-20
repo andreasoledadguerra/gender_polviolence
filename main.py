@@ -69,6 +69,7 @@ def bifunction_event_region(user_choice):
             elif user_choice.upper() == 'Q':
                 print("Outer function has finished executing.")
                 is_input_ok = True
+                
         else:
             print("Invalid choice. Please try again.")
 
