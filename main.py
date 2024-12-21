@@ -39,52 +39,7 @@ def plot_counts_events_per_region(df_same_region: dict, EVENT: str) -> object :
     # Create a color list based on the event type
     colors = ['r' if event == EVENT else 'darkslategray' for event in df_same_region['Event type']]
     fig = plot_counts_events_per_region(df_same_region, EVENT)
-    return fig 
-
-
-def bifunction_event_region():
-    valid_choices = ["A", "B", "Q"]
-    is_input_ok = False
-    
-    while not is_input_ok:
-        user_choice = input(" Choose an option:\n"
-                          "'A' if you want to see same event across regions,\n"
-                          "'B' if you want to see event counts per region,\n"
-                          "'Q' if you want to quit\n")
-                          
-        if user_choice.upper() in valid_choices:
-            if user_choice.upper() == 'A':
-                process_same_event_option()
-                is_input_ok = True
-                
-            elif user_choice.upper() == 'B':
-                process_region_count_option()
-                is_input_ok = True
-                
-            elif user_choice.upper() == 'Q':
-                print("Outer function has finished executing.")
-                is_input_ok = True
-        else:
-            print("Invalid choice. Please try again.")
-
-def process_same_event_option():
-    # Only work with df_same_event when option A is chosen
-    event = input(f"Choose {EVENT}: ")
-    region = input(f"Choose {REGION}: ")
-    print(same_event(df_same_event, EVENT, REGION))
-
-def process_region_count_option():
-    # Only work with df_input_region when option B is chosen
-    event = input(f"Choose {EVENT}: ")
-    print(plot_counts_events_per_region(df_input_region, EVENT))
-
-# Usage
-if __name__ == "__main__":
-    bifunction_event_region() 
-
-        
-fig = bifunction_event_region()
-    
+    return fig    
 
 
 
@@ -173,10 +128,6 @@ fig = plot_counts_events_per_region(df_same_region, EVENT)
 fig = same_event(df_same_event, EVENT, REGION)
 
 #Our function for choose plot ('plot_counts_events_per_region' or 'same_event')
-fig = bifunction_event_region(user_choice)
-
-
-    
 
 
 # Create two selectboxes to perform fatalities per region
@@ -298,31 +249,16 @@ if st.button('Get your plot of event in a region highlighted'):
 #Creating selectboxes for choose 'plot_counts_events_per_region' or 'same_event' using 'bifunction_event_region'
 colA, ColB, ColQ = st.columns(3)
 
+valid_choices = ["A", "B", "Q"]
+
 with colA:
     #Selectbox for choosing the variable A ("Plot same event per region")
-    option_A =st.selectbox(
-        "Select A for plot same event per region",
-        (bifunction_event_region("A")) #?
+    user_choice =st.selectbox(
+        "Select A for plot same event per region", valid_choices
+    )   
 
-)   
-
-with ColB:
-    #Selectbox for choosing the variable B ("Plot all events per region")
-    option_B =st.selectbox(
-        "Select A for plot all events per region",
-        (bifunction_event_region("B"))#?
-
-)
-
-with ColQ:
-    #Selectbox for choosing the variable Q ("Quit")
-    option_Q =st.selectbox(
-        "Select A for quit",
-        (bifunction_event_region("Q"))#?
-
-)
     
 #A button to perform analysis is created
 if st.button('Get your plot'):     
     
-    st.pyplot(bifunction_event_region(user_choice))
+    st.pyplot(bifunction_event_region(user_choice, valid_choices))
