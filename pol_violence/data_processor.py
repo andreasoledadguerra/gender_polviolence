@@ -3,6 +3,12 @@ import pandas as pd
 from pol_violence.const import COL_REGION, COL_FATALITIES, COL_SUB_EVENT_TYPE
 
 
+def get_fatalites_per_region(df_gpv: pd.DataFrame) -> dict:
+    """ Convert columns ina adictionary, key=region, value=total_sum_of_fatalities."""
+    return df_gpv.groupby(COL_REGION)[COL_FATALITIES].sum().to_dict()
+
+
+
 def plot_stacked_bar(grouped_counts: pd.DataFrame) -> object:
     stacked_df = grouped_counts.unstack(fill_value=0)  
     plt.figure(figsize=(12, 6))
