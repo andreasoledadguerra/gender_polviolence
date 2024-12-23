@@ -54,27 +54,6 @@ df_gpv = load_dataframe()
 st.dataframe(df_gpv)
 
 
-# A dictionary is created 
-region_map = {
-    'africa': ['Southern Africa', 'Northern Africa', 'Middle Africa', 'Western Africa', 'Eastern Africa'],
-    'middle east': ['Middle East'],
-    'asia':['Caucasus and Central Asia', 'Sotheast Asia', 'South Asia', 'East Asia'],
-    'america and caribbean' :[ 'South America', 'North America', 'Central America', 'Caribbean'],
-    'europe': ['Europe'],
-    'oceania': ['Oceania']
-}
-
-# Flatten the mapping to map each element to its group
-
-flattened_map = {}
-for key, values in region_map.items():
-    for item in values:
-        flattened_map[item] = key
-
-
-#new_column = {'region': ['america', 'middle east', 'asia', 'america and caribbean', 'europe', 'oceania']}
-df_gpv['region'] = df_gpv['region'].map(flattened_map)
-
 
 #'region' and 'fatalities' are related 
 group_region_fatalities = df_gpv.groupby('region')['fatalities'].sum()
