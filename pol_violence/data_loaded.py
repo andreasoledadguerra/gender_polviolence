@@ -61,8 +61,8 @@ def load_dataframe() -> pd.DataFrame :
         'tags',
         'timestamp'                           
     ], axis=1, inplace=True)
-
-
     df_gpv["date"] = df_gpv["event_date"].apply(date.fromisoformat)
+
+    df_gpv = map_region_to_normalized_region(df_gpv)
 
     return df_gpv
