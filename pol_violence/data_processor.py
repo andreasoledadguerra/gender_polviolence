@@ -1,8 +1,7 @@
-"""TODO ver en python lo que es el scope de variable"""
-
+from typing import Tuple
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+from pol_violence.const import COL_REGION, COL_FATALITIES, COL_SUB_EVENT_TYPE
+
 
 #asd = 'lo que quieras' -> es una variable global, puede ser llamada en cualquier scope
 #def sarasa():
