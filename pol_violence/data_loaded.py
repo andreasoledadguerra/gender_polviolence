@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import date
+from pol_violence.const import PATH_DATA_DF, COL_REGION 
 def load_dataframe() -> pd.DataFrame :
     
     # Dataset is downloaded
